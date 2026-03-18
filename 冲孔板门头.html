@@ -3,195 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>古月AI · 冲孔铝板门头生成器（施工级Pro）</title>
+<title>冲孔铝板门头生成器 · 古月AI</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Microsoft YaHei",sans-serif;
+}
 
 body{
-    font-family:"Microsoft YaHei";
-    background:linear-gradient(135deg,#0f2027,#2c5364,#1a1a2e,#16213e);
-    background-size:400% 400%;
-    animation:bgMove 15s infinite ease;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
-    color:#fff;
+  min-height:100vh;
+  background:linear-gradient(135deg,#0f2027,#2c5364,#1c1c1c);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px;
 }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+/* 标题 */
+.title{
+  font-size:34px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#00f2fe,#4facfe,#43e97b);
+  -webkit-background-clip:text;
+  color:transparent;
+  margin-bottom:10px;
 }
 
-.card{
-    width:100%;
-    max-width:1600px;
-    border-radius:28px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(30px);
-    box-shadow:0 30px 100px rgba(0,0,0,0.7);
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.08);
+.subtitle{
+  opacity:.8;
+  margin-bottom:25px;
 }
 
-.header{
-    padding:30px;
-    background:linear-gradient(90deg,#00c6ff,#0072ff,#00c6ff);
-    background-size:200% 200%;
-    animation:flow 6s linear infinite;
-}
-
-@keyframes flow{
-    0%{background-position:0%}
-    100%{background-position:100%}
-}
-
-.header h1{font-size:34px;font-weight:800;}
-.header p{opacity:.9;margin-top:8px}
-
-.main{display:flex;}
-
-.left{
-    width:380px;
-    padding:30px;
-    border-right:1px solid rgba(255,255,255,0.08);
+/* 输入区 */
+.input-box{
+  width:90%;
+  max-width:900px;
+  display:flex;
+  gap:10px;
 }
 
 input{
-    width:100%;
-    padding:14px;
-    margin-bottom:14px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,0.08);
-    color:#fff;
-}
-
-input:focus{
-    outline:none;
-    box-shadow:0 0 0 2px #00c6ff;
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:16px;
 }
 
 button{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:14px;
-    background:linear-gradient(90deg,#00c6ff,#0072ff);
-    color:#fff;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
+  padding:14px 22px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  color:#fff;
+  cursor:pointer;
+  font-weight:bold;
+  transition:.3s;
 }
 
 button:hover{
-    transform:translateY(-4px);
-    box-shadow:0 15px 40px rgba(0,150,255,0.6);
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
-.right{
-    flex:1;
-    padding:30px;
-    max-height:800px;
-    overflow:auto;
+/* 输出区 */
+.result{
+  width:90%;
+  max-width:1100px;
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
 }
 
-.item{
-    background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
-    padding:22px;
-    border-radius:18px;
-    margin-bottom:15px;
-    position:relative;
-    transition:.3s;
+/* 卡片 */
+.card{
+  padding:16px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.1);
+  position:relative;
+  line-height:1.6;
+  transition:.3s;
 }
 
-.item:hover{
-    transform:translateY(-6px);
-    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+.card:hover{
+  transform:translateY(-4px);
 }
 
+/* 复制按钮 */
 .copy{
-    position:absolute;
-    right:15px;
-    bottom:15px;
-    background:#00c6ff;
-    border:none;
-    color:#fff;
-    padding:6px 14px;
-    border-radius:8px;
-    cursor:pointer;
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:6px;
+  background:linear-gradient(135deg,#ff7e5f,#feb47b);
+  cursor:pointer;
+}
+
+::-webkit-scrollbar{
+  width:6px;
+}
+::-webkit-scrollbar-thumb{
+  background:#888;
+  border-radius:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-    <div class="header">
-        <h1>🔷 古月AI · 冲孔铝板门头生成器</h1>
-        <p>冲孔结构逻辑 · 多孔型变化 · 20组完全不同 · 真实施工级方案</p>
-    </div>
+<div class="title">冲孔铝板门头生成器</div>
+<div class="subtitle">古月AI智能体 · 可施工 · 专业级门头方案</div>
 
-    <div class="main">
-        <div class="left">
-            <input id="input" placeholder="输入：行业 + 门头名称（例：餐饮店 食味记）">
-            <button onclick="generate()">生成20组方案</button>
-        </div>
-
-        <div class="right" id="output"></div>
-    </div>
+<div class="input-box">
+  <input id="input" placeholder="请输入：行业 + 门头名称 + 需求（例：餐饮 火锅店 巴蜀火锅 年轻化 夜市风）">
+  <button onclick="generate()">生成方案</button>
 </div>
 
+<div class="result" id="result"></div>
+
 <script>
+
 function generate(){
-    let val=document.getElementById("input").value.trim();
-    if(!val){val="餐饮店 食味记";}
-    
-    let [industry,name]=val.split(" ");
-    if(!name){name="食味记";}
+  const input = document.getElementById("input").value;
+  if(!input){
+    alert("请输入完整需求");
+    return;
+  }
 
-    const colors=[
-        "暖米色+暖光透光","哑光黑+暖光透出","深灰+冷白光","香槟金+柔光",
-        "玫瑰金+暖光","墨绿色+金属拉丝","深蓝+冷光","橙色+暖光透光",
-        "红色+暖光","咖啡色+暖光","浅灰+白光","藏蓝+冷光",
-        "品牌定制色+透光背板","深棕色+暖光","银灰+白光","黑金搭配+暖光",
-        "暖灰+透光","浅米色+柔光","深绿+暖光","蓝灰+冷光"
-    ];
+  const result = document.getElementById("result");
+  result.innerHTML = "";
 
-    const holes=[
-        "规则圆孔阵列","渐变圆孔排列","方孔矩阵","六边形蜂窝孔",
-        "不规则艺术冲孔","线性排列冲孔","大小渐变孔洞","密集细孔设计",
-        "疏密变化孔洞","横向渐变孔","纵向渐变孔","几何拼接孔洞",
-        "局部冲孔装饰","整面冲孔透光","边缘渐变孔","中心聚焦孔洞",
-        "对称排列孔洞","随机艺术孔","菱形孔阵列","细密科技孔"
-    ];
+  const holes = [
+    "渐变圆孔","规则方孔","六边形蜂窝孔","大小不一圆孔组合",
+    "不规则艺术孔","线性排布孔洞","密集微孔","渐变六边形孔",
+    "波浪孔洞排列","交错几何孔"
+  ];
 
-    let html="";
+  const colors = [
+    "哑光黑+暖光透出","深灰+白色背板","香槟金+暖光","墨绿色+金色字体",
+    "深蓝色+冷白光","咖啡色+暖黄光","拉丝金+白光","红色+暖光透出",
+    "橙色+白光","品牌定制色+渐变灯光"
+  ];
 
-    for(let i=0;i<20;i++){
-        let p=`白天自然光，${industry}门头正立面完整展示，正面平视视角，无透视畸变无遮挡，真实商业街环境。冲孔铝板门头设计，采用${holes[i]}形式，体现通透感与层次变化。整体颜色为${colors[i]}方案，表面氟碳喷涂与微砂质感处理。冲孔铝板面层结合内衬基层与灯光背板结构，透光效果真实自然。不锈钢包边收口，结构合理。搭配亚克力字、不锈钢字与背发光字组合。品牌名称“${name}”为视觉核心，占比最大，主营品类“${industry}”辅助信息，标语点缀说明，整体排版均衡清晰，字体采用现代黑体或工业风字体。白天发光字开启，冲孔透光柔和不过曝。8K高清商业写实效果图，细节真实，色彩自然，可直接施工参考。`;
+  const fonts = [
+    "现代黑体发光字","圆角发光字体","轻奢细衬线字","工业风字体",
+    "不锈钢背发光字","亚克力通体发光字","不锈钢包边字",
+    "悬浮背光字","极简发光字","立体金属字"
+  ];
 
-        html+=`
-        <div class="item">
-            ${p}
-            <button class="copy" onclick="copyText(this)">复制</button>
-        </div>`;
-    }
+  const slogans = [
+    "城市烟火气","好吃不贵","年轻人的聚集地","一口上瘾",
+    "潮流新地标","越吃越香","品质生活","热辣来袭",
+    "生活有滋味","烟火人间"
+  ];
 
-    document.getElementById("output").innerHTML=html;
+  for(let i=0;i<20;i++){
+
+    let text = `
+${input}，冲孔铝板门头设计，采用${holes[i%10]}，${colors[i%10]}配色，
+白天自然光环境，门头正立面完整展示，正面平视视角，无透视畸变，无任何遮挡，
+真实商业街场景，比例合理，
+冲孔铝板面层结合龙骨结构支撑+内衬灯箱基层+不锈钢包边结构，
+具备通透感与层次感，形成自然透光效果，
+搭配${fonts[i%10]}，
+门头包含品牌名称+主营品类+标语「${slogans[i%10]}」，
+文字主次分明（品牌40%-50%，品类10%-20%，标语5%），排版均衡清晰，
+发光字开启+冲孔透光效果柔和不过曝，
+氟碳喷涂+微砂质感工艺，
+8K高清，商业写实效果图，细节真实，可直接施工参考，店铺正立面完全展示
+    `;
+
+    let div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = text + `<div class="copy" onclick="copyText(this)">复制</div>`;
+
+    result.appendChild(div);
+  }
 }
 
 function copyText(btn){
-    const text=btn.parentNode.innerText.replace("复制","");
-    navigator.clipboard.writeText(text);
-    btn.innerText="已复制";
-    setTimeout(()=>btn.innerText="复制",1000);
+  const text = btn.parentNode.innerText.replace("复制","");
+  navigator.clipboard.writeText(text);
+
+  btn.innerText="已复制";
+  setTimeout(()=>{
+    btn.innerText="复制";
+  },2000);
 }
+
 </script>
 
 </body>
