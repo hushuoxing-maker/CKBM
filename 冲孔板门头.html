@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>古月AI · 冲孔铝板门头生成器</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:"Microsoft YaHei";
+    background:linear-gradient(135deg,#0f2027,#2c5364,#1c1c1c);
+    background-size:300% 300%;
+    animation:bg 10s infinite alternate;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    color:#fff;
+}
+
+@keyframes bg{
+    0%{background-position:0%}
+    100%{background-position:100%}
+}
+
+/* 卡片 */
+.card{
+    width:100%;
+    max-width:1500px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    overflow:hidden;
+}
+
+/* 头部 */
+.header{
+    padding:25px;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+}
+
+.header h1{font-size:30px;}
+.header p{opacity:0.9;margin-top:5px;}
+
+/* 布局 */
+.main{display:flex;}
+
+/* 输入 */
+.left{
+    width:350px;
+    padding:25px;
+    border-right:1px solid rgba(255,255,255,0.1);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:12px;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.1);
+    color:#fff;
+}
+
+input:focus{
+    outline:none;
+    box-shadow:0 0 0 2px #00c6ff;
+}
+
+/* 按钮 */
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(0,150,255,0.5);
+}
+
+/* 输出 */
+.right{
+    flex:1;
+    padding:25px;
+    max-height:800px;
+    overflow:auto;
+}
+
+/* 卡片 */
+.item{
+    background:rgba(255,255,255,0.08);
+    padding:18px;
+    border-radius:15px;
+    margin-bottom:12px;
+    position:relative;
+}
+
+.copy{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+    background:#00c6ff;
+    border:none;
+    color:#fff;
+    padding:5px 10px;
+    border-radius:6px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="header">
+        <h1>🔷 古月AI · 冲孔铝板门头生成器</h1>
+        <p>高性价比 · 工业质感 · 20组完全不同 · 可施工落地</p>
+    </div>
+
+    <div class="main">
+        <div class="left">
+            <input id="industry" placeholder="行业类型（如：便利店）">
+            <button onclick="generate()">生成20组提示词</button>
+        </div>
+
+        <div class="right" id="output"></div>
+    </div>
+</div>
+
+<script>
+function generate(){
+    const industry=document.getElementById("industry").value||"便利店";
+
+    const brands=["优选生活","城市便利","速购之家","邻里优选","优品汇","轻松购","便捷生活","天天优选","好邻居","速享店"];
+    const categories=["日用百货","便利零售","生活用品","快消商品","社区零售"];
+    const slogans=["方便每一天","生活更简单","随时随地","轻松购物","品质生活"];
+
+    const styles=[
+        "银灰冲孔","深灰工业风","黑色极简","蓝灰商务","白色干净",
+        "深蓝现代","浅灰极简","金属原色","磨砂铝板","冷色工业",
+        "暖灰轻工业","黑灰搭配","银白科技","极简线性","标准商业",
+        "实用主义","现代通用","轻工业质感","标准化门头","耐用设计"
+    ];
+
+    let html="";
+
+    for(let i=0;i<20;i++){
+        let brand=brands[i%brands.length];
+        let category=categories[i%categories.length];
+        let slogan=slogans[i%slogans.length];
+
+        let p=`白天自然光，${industry}门头正立面完整展示，正面平视视角，无透视畸变无遮挡。冲孔铝板门头设计，${styles[i]}风格，平整简洁，性价比高，通用大气。门头采用冲孔铝板底板，不锈钢包边结构，搭配亚克力字、不锈钢字与正面发光字组合。品牌店名“${brand}”结合主营“${category}”与标语“${slogan}”，字体清晰易读，大小比例合理。日间正面光清晰，发光字效果明显。8K高清商业写实效果图，细节丰富，色彩自然，可直接施工参考。`;
+
+        html+=`
+        <div class="item">
+            ${p}
+            <button class="copy" onclick="copyText(this)">复制</button>
+        </div>`;
+    }
+
+    document.getElementById("output").innerHTML=html;
+}
+
+function copyText(btn){
+    const text=btn.parentNode.innerText.replace("复制","");
+    navigator.clipboard.writeText(text);
+    btn.innerText="已复制";
+    setTimeout(()=>btn.innerText="复制",1000);
+}
+</script>
+
+</body>
+</html>
